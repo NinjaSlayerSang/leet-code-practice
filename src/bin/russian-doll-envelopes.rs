@@ -34,14 +34,8 @@ impl Extension for Vec<i32> {
 
 impl Solution {
     pub fn max_envelopes(mut envelopes: Vec<Vec<i32>>) -> i32 {
-        use std::cmp::Ordering::{Equal, Greater, Less};
-
         let len = envelopes.len();
-        envelopes.sort_by(|a, b| match a[0].cmp(&b[0]) {
-            Less => Less,
-            Greater => Greater,
-            Equal => b[1].cmp(&a[1]),
-        });
+        envelopes.sort_by(|a, b| a[0].cmp(&b[0]).then(b[1].cmp(&a[1])));
 
         let mut f = Vec::<i32>::with_capacity(len);
 

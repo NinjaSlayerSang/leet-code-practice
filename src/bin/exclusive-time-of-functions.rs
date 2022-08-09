@@ -8,8 +8,6 @@ struct Solution;
 
 impl Solution {
     pub fn exclusive_time(n: i32, logs: Vec<String>) -> Vec<i32> {
-        use std::cmp::Ordering::{Equal, Greater, Less};
-
         let n = n as usize;
         let mut logs = logs
             .into_iter()
@@ -23,11 +21,7 @@ impl Solution {
             })
             .collect::<Vec<_>>();
 
-        logs.sort_by(|a, b| match a.timestamp.cmp(&b.timestamp) {
-            Less => Less,
-            Greater => Greater,
-            Equal => b.signal.cmp(&a.signal),
-        });
+        logs.sort_by(|a, b| a.timestamp.cmp(&b.timestamp).then(b.signal.cmp(&a.signal)));
 
         let mut time = vec![0; n];
         let mut stack = Vec::<usize>::new();
