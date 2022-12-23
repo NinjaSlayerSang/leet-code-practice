@@ -7,8 +7,7 @@ impl Solution {
         let (m, n) = (haystack.len(), needle.len());
 
         let mut next = vec![-1; n + 1];
-        next[1] = 0;
-        for i in 1..n {
+        for i in 0..n {
             let mut p = next[i];
             while p >= 0 {
                 if needle[i] == needle[p as usize] {
